@@ -1,0 +1,113 @@
+B := 2^64;
+
+mul := function(a, b)
+	return (a*b) div B, (a*b) mod B;
+end function;
+
+a0 := 0xd8e309182746abcf;
+a1 := 0xefda51237272fbc2;
+a2 := 0xfe84625728292733;
+a3 := 0x373248236482573f;
+
+b0 := 0x1423769423943242;
+b1 := 0x7236942734923423;
+b2 := 0x2394239428342342;
+b3 := 0x34829314fded3344;
+
+rdx, rax := mul(a0, b0);
+r8 := rax;
+rcx := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r8 := ", r8:Hex;
+print "rcx := ", rcx:Hex;
+print "---";
+
+rdx, rax := mul(a1, b0);
+rdx := rdx + (rax + rcx) div B;
+rax := (rax + rcx) mod B;
+r9 := rax;
+rcx := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r9 := ", r9:Hex;
+print "rcx := ", rcx:Hex;
+print "---";
+
+rdx, rax := mul(a2, b0);
+rdx := rdx + (rax + rcx) div B;
+rax := (rax + rcx) mod B;
+r10 := rax;
+rcx := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r10 := ", r10:Hex;
+print "rcx := ", rcx:Hex;
+print "---";
+
+rdx, rax := mul(a3, b0);
+rdx := rdx + (rax + rcx) div B;
+rax := (rax + rcx) mod B;
+r11 := rax;
+r12 := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r11 := ", r11:Hex;
+print "r12 := ", r12:Hex;
+print "---";
+
+a := ( (a0 * B^0) + (a1 * B^1) + (a2 * B^2) + (a3 * B^3) ) * b0;
+r := (r8 * B^0) + (r9 * B^1) + (r10 * B^2) + (r11 * B^3) + (r12 * B^4);
+a eq r;
+
+
+
+print "\n===\n";
+
+
+
+rdx, rax := mul(a0, b1);
+rdx := rdx + (r9 + rax) div B;
+r9 := (r9 + rax) mod B;
+rcx := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r9 := ", r9:Hex;
+print "rcx := ", rcx:Hex;
+print "---";
+
+rdx, rax := mul(a1, b1);
+rdx := rdx + (r10 + rax) div B;
+r10 := (r10 + rax) mod B;
+rdx := rdx + (r10 + rcx) div B;
+r10 := (r10 + rcx) mod B;
+rcx := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r10 := ", r10:Hex;
+print "rcx := ", rcx:Hex;
+print "---";
+
+rdx, rax := mul(a2, b1);
+rdx := rdx + (r11 + rax) div B;
+r11 := (r11 + rax) mod B;
+rdx := rdx + (r11 + rcx) div B;
+r11 := (r11 + rcx) mod B;
+rcx := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r11 := ", r11:Hex;
+print "rcx := ", rcx:Hex;
+print "---";
+
+rdx, rax := mul(a3, b1);
+rdx := rdx + (r12 + rax) div B;
+r12 := (r12 + rax) mod B;
+rdx := rdx + (r12 + rcx) div B;
+r12 := (r12 + rcx) mod B;
+r13 := rdx;
+print "rdx := ", rdx:Hex;
+print "rax := ", rax:Hex;
+print "r11 := ", r11:Hex;
+print "r13 := ", r13:Hex;
+print "---";
